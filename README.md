@@ -1,6 +1,8 @@
-# Goda
+# Goda Cluster
 
-Goda is a Go dependency analysis toolkit. It contains tools to figure out what your program is using.
+Goda Cluster is a Go dependency analysis toolkit with enhanced clustering capabilities. It contains tools to figure out what your program is using, with special support for directory-based clustering and visualization.
+
+_Note: This is a fork of [loov/goda](https://github.com/pratikiran/goda-cluster) with additional clustering features._
 
 _Note: the exact syntax of the command line arguments has not yet been finalized. So expect some changes to it._
 
@@ -9,7 +11,7 @@ _Note: the exact syntax of the command line arguments has not yet been finalized
 To install, you'll need a recent version of Go and then you can install via:
 
 ```
-go install github.com/loov/goda@latest
+go install github.com/pratikiran/goda-cluster@latest
 ```
 
 The commands assume that your GOBIN is reachable on path.
@@ -20,40 +22,40 @@ The graph visualizations require [GraphViz](https://graphviz.org/) for rendering
 
 ```
 # All of the commands should be run in the cloned repository.
-git clone https://github.com/loov/goda && cd goda
+git clone https://github.com/pratikiran/goda-cluster && cd goda-cluster
 
-# draw a graph of packages in github.com/loov/goda
-goda graph "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+# draw a graph of packages in github.com/pratikiran/goda-cluster
+goda graph "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 
-# draw a graph of command github.com/loov/goda, within the module
-goda graph "github.com/loov/goda:mod" | dot -Tsvg -o graph.svg
+# draw a graph of command github.com/pratikiran/goda-cluster, within the module
+goda graph "github.com/pratikiran/goda-cluster:mod" | dot -Tsvg -o graph.svg
 
-# draw a dependency graph of github.com/loov/goda and dependencies
-goda graph -cluster -short "github.com/loov/goda:all" | dot -Tsvg -o graph.svg
+# draw a dependency graph of github.com/pratikiran/goda-cluster and dependencies
+goda graph -cluster -short "github.com/pratikiran/goda-cluster:all" | dot -Tsvg -o graph.svg
 
 # draw a dependency graph with nested directory-based clusters
-goda graph -cluster-dir "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster-dir "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 
 # draw a dependency graph with directory clusters limited to 2 levels deep
-goda graph -cluster-dir -cluster-depth 2 "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster-dir -cluster-depth 2 "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 
-# list direct dependencies of github.com/loov/goda
-goda list "github.com/loov/goda/...:import"
+# list direct dependencies of github.com/pratikiran/goda-cluster
+goda list "github.com/pratikiran/goda-cluster/...:import"
 
 # list dependency graph that reaches flag package, including std
-goda graph -std "reach(github.com/loov/goda/...:all, flag)" | dot -Tsvg -o graph.svg
+goda graph -std "reach(github.com/pratikiran/goda-cluster/...:all, flag)" | dot -Tsvg -o graph.svg
 
-# list packages shared by github.com/loov/goda/pkgset and github.com/loov/goda/cut
-goda list "shared(github.com/loov/goda/pkgset:all, github.com/loov/goda/cut:all)"
+# list packages shared by github.com/pratikiran/goda-cluster/pkgset and github.com/pratikiran/goda-cluster/cut
+goda list "shared(github.com/pratikiran/goda-cluster/pkgset:all, github.com/pratikiran/goda-cluster/cut:all)"
 
 # list packages that are only imported for tests
-goda list "github.com/loov/goda/...:+test:all - github.com/loov/goda/...:all"
+goda list "github.com/pratikiran/goda-cluster/...:+test:all - github.com/pratikiran/goda-cluster/...:all"
 
 # list packages that are imported with `purego` tag
-goda list -std "purego=1(github.com/loov/goda/...:all)"
+goda list -std "purego=1(github.com/pratikiran/goda-cluster/...:all)"
 
 # list packages that are imported for windows and not linux
-goda list "goos=windows(github.com/loov/goda/...:all) - goos=linux(github.com/loov/goda/...:all)"
+goda list "goos=windows(github.com/pratikiran/goda-cluster/...:all) - goos=linux(github.com/pratikiran/goda-cluster/...:all)"
 
 # list how much memory each symbol in the final binary is taking
 goda weight -h $GOPATH/bin/goda
@@ -76,21 +78,21 @@ Maybe you noticed that it's using some weird symbols on the command-line while s
 The basic syntax is that you can specify multiple packages:
 
 ```
-goda list github.com/loov/goda/... github.com/loov/qloc
+goda list github.com/pratikiran/goda-cluster/... github.com/loov/qloc
 ```
 
 By default it will select all the specific packages. You can select the package's direct dependencies with `:import`, direct and indirect dependencies with `:import:all`, the package and all of its direct and indirect dependencies with `:all`:
 
 ```
-goda list github.com/loov/goda/...:import
-goda list github.com/loov/goda/...:import:all
-goda list github.com/loov/goda/...:all
+goda list github.com/pratikiran/goda-cluster/...:import
+goda list github.com/pratikiran/goda-cluster/...:import:all
+goda list github.com/pratikiran/goda-cluster/...:all
 ```
 
 You can also do basic arithmetic with these sets. For example, if you wish to ignore all `golang.org/x/tools` dependencies:
 
 ```
-goda list github.com/loov/goda/...:all - golang.org/x/tools/...
+goda list github.com/pratikiran/goda-cluster/...:all - golang.org/x/tools/...
 ```
 
 To get more help about expressions or formatting:
@@ -109,7 +111,7 @@ The `graph` command supports different clustering modes to organize packages in 
 Groups packages by their repository and module:
 
 ```bash
-goda graph -cluster "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 ```
 
 ### Directory-Based Clustering (`-cluster-dir`)
@@ -118,13 +120,13 @@ Creates nested clusters based on directory structure, with depth-based color cod
 
 ```bash
 # Enable directory-based clustering
-goda graph -cluster-dir "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster-dir "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 
 # Limit nesting depth to 2 levels
-goda graph -cluster-dir -cluster-depth 2 "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster-dir -cluster-depth 2 "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 
 # Disable depth-based coloring
-goda graph -cluster-dir -cluster-color=false "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+goda graph -cluster-dir -cluster-color=false "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 ```
 
 **Directory clustering flags:**
@@ -140,11 +142,11 @@ Directory-based clustering organizes packages hierarchically by their path struc
 Here's an example output for:
 
 ```
-git clone https://github.com/loov/goda && cd goda
-goda graph github.com/loov/goda:mod | dot -Tsvg -o graph.svg
+git clone https://github.com/pratikiran/goda-cluster && cd goda-cluster
+goda graph github.com/pratikiran/goda-cluster:mod | dot -Tsvg -o graph.svg
 ```
 
-![github.com/loov/goda dependency graph](./graph.svg)
+![github.com/pratikiran/goda-cluster dependency graph](./graph.svg)
 
 ## How it differs from `go list` or `go mod`
 

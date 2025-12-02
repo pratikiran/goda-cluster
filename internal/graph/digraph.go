@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/loov/goda/internal/pkggraph"
+	"github.com/pratikiran/goda-cluster/internal/pkggraph"
 )
 
 type Digraph struct {

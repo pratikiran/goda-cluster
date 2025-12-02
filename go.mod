@@ -1,4 +1,4 @@
-module github.com/loov/goda
+module github.com/pratikiran/goda-cluster
 
 go 1.24.0
 

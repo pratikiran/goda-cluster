@@ -10,14 +10,14 @@ import (
 
 	"github.com/google/subcommands"
 
-	"github.com/loov/goda/internal/cut"
-	"github.com/loov/goda/internal/exec"
-	"github.com/loov/goda/internal/graph"
-	"github.com/loov/goda/internal/list"
-	"github.com/loov/goda/internal/pkgset"
-	"github.com/loov/goda/internal/tree"
-	"github.com/loov/goda/internal/weight"
-	"github.com/loov/goda/internal/weightdiff"
+	"github.com/pratikiran/goda-cluster/internal/cut"
+	"github.com/pratikiran/goda-cluster/internal/exec"
+	"github.com/pratikiran/goda-cluster/internal/graph"
+	"github.com/pratikiran/goda-cluster/internal/list"
+	"github.com/pratikiran/goda-cluster/internal/pkgset"
+	"github.com/pratikiran/goda-cluster/internal/tree"
+	"github.com/pratikiran/goda-cluster/internal/weight"
+	"github.com/pratikiran/goda-cluster/internal/weightdiff"
 )
 
 func main() {
@@ -140,18 +140,18 @@ package expressions.
 
 # Example expressions:
 
-	github.com/loov/goda:import
-		all direct dependencies for the "github.com/loov/goda" package
+	github.com/pratikiran/goda-cluster:import
+		all direct dependencies for the "github.com/pratikiran/goda-cluster" package
 
-	shared(github.com/loov/goda/pkgset:all, github.com/loov/goda/templates:all)
+	shared(github.com/pratikiran/goda-cluster/pkgset:all, github.com/pratikiran/goda-cluster/templates:all)
 		packages directly or indirectly imported by both
-		"github.com/loov/goda/pkgset" and "github.com/loov/goda/templates"
+		"github.com/pratikiran/goda-cluster/pkgset" and "github.com/pratikiran/goda-cluster/templates"
 
-	github.com/loov/goda/...:all - golang.org/x/tools/...
+	github.com/pratikiran/goda-cluster/...:all - golang.org/x/tools/...
 		all of goda's dependencies excluding golang.org/x/tools packages
 
-	reach(github.com/loov/goda/...:all, golang.org/x/tools/go/packages)
-		packages in github.com/loov/goda/ that use golang.org/x/tools/go/packages
+	reach(github.com/pratikiran/goda-cluster/...:all, golang.org/x/tools/go/packages)
+		packages in github.com/pratikiran/goda-cluster/ that use golang.org/x/tools/go/packages
 `
 }
 func (*ExprHelp) SetFlags(f *flag.FlagSet) {}

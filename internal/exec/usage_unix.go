@@ -7,7 +7,7 @@ import (
 	"os"
 	"syscall"
 
-	"github.com/loov/goda/internal/memory"
+	"github.com/pratikiran/goda-cluster/internal/memory"
 )
 
 func TryGetUsage(state *os.ProcessState) Usage {

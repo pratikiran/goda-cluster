@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/loov/goda/internal/pkggraph"
+	"github.com/pratikiran/goda-cluster/internal/pkggraph"
 	"golang.org/x/mod/module"
 	"golang.org/x/tools/go/packages"
 )

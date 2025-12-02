@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/loov/goda/internal/pkggraph"
+	"github.com/pratikiran/goda-cluster/internal/pkggraph"
 )
 
 // DirCluster represents a directory-based cluster node

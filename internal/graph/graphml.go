@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/image/colornames"
 
-	"github.com/loov/goda/internal/graph/graphml"
-	"github.com/loov/goda/internal/pkggraph"
+	"github.com/pratikiran/goda-cluster/internal/graph/graphml"
+	"github.com/pratikiran/goda-cluster/internal/pkggraph"
 )
 
 type GraphML struct {

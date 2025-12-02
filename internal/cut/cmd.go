@@ -14,10 +14,10 @@ import (
 	"github.com/google/subcommands"
 	"golang.org/x/tools/go/packages"
 
-	"github.com/loov/goda/internal/pkggraph"
-	"github.com/loov/goda/internal/pkgset"
-	"github.com/loov/goda/internal/stat"
-	"github.com/loov/goda/internal/templates"
+	"github.com/pratikiran/goda-cluster/internal/pkggraph"
+	"github.com/pratikiran/goda-cluster/internal/pkgset"
+	"github.com/pratikiran/goda-cluster/internal/stat"
+	"github.com/pratikiran/goda-cluster/internal/templates"
 )
 
 type Command struct {
