@@ -26,8 +26,11 @@ type Command struct {
 	nocolor bool
 	colors  exprColors
 
-	clusters bool
-	shortID  bool
+	clusters      bool
+	clusterByDir  bool
+	clusterDepth  int
+	clusterColors bool
+	shortID       bool
 }
 
 func (*Command) Name() string     { return "graph" }
@@ -67,6 +70,9 @@ func (cmd *Command) SetFlags(f *flag.FlagSet) {
 	f.StringVar(&cmd.labelFormat, "f", "", "label formatting")
 
 	f.BoolVar(&cmd.clusters, "cluster", false, "create clusters")
+	f.BoolVar(&cmd.clusterByDir, "cluster-dir", false, "create nested directory-based clusters (implies -cluster)")
+	f.IntVar(&cmd.clusterDepth, "cluster-depth", -1, "maximum cluster nesting depth (-1 for unlimited, only with -cluster-dir)")
+	f.BoolVar(&cmd.clusterColors, "cluster-color", true, "color clusters by depth (only with -cluster-dir)")
 	f.BoolVar(&cmd.shortID, "short", false, "use short package id-s inside clusters")
 }
 
@@ -89,14 +95,19 @@ func (cmd *Command) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface
 	var format Format
 	switch strings.ToLower(cmd.outputType) {
 	case "dot":
+		// If cluster-dir is enabled, implicitly enable clusters
+		clusters := cmd.clusters || cmd.clusterByDir
 		format = &Dot{
-			out:      os.Stdout,
-			err:      os.Stderr,
-			docs:     cmd.docs,
-			clusters: cmd.clusters,
-			nocolor:  cmd.nocolor,
-			shortID:  cmd.shortID,
-			label:    label,
+			out:           os.Stdout,
+			err:           os.Stderr,
+			docs:          cmd.docs,
+			clusters:      clusters,
+			clusterByDir:  cmd.clusterByDir,
+			clusterDepth:  cmd.clusterDepth,
+			clusterColors: cmd.clusterColors,
+			nocolor:       cmd.nocolor,
+			shortID:       cmd.shortID,
+			label:         label,
 		}
 	case "mermaid":
 		format = &Mermaid{

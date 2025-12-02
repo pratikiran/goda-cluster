@@ -31,6 +31,12 @@ goda graph "github.com/loov/goda:mod" | dot -Tsvg -o graph.svg
 # draw a dependency graph of github.com/loov/goda and dependencies
 goda graph -cluster -short "github.com/loov/goda:all" | dot -Tsvg -o graph.svg
 
+# draw a dependency graph with nested directory-based clusters
+goda graph -cluster-dir "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+
+# draw a dependency graph with directory clusters limited to 2 levels deep
+goda graph -cluster-dir -cluster-depth 2 "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+
 # list direct dependencies of github.com/loov/goda
 goda list "github.com/loov/goda/...:import"
 
@@ -93,6 +99,41 @@ To get more help about expressions or formatting:
 goda help expr
 goda help format
 ```
+
+## Clustering Options
+
+The `graph` command supports different clustering modes to organize packages in the visualization:
+
+### Basic Clustering (`-cluster`)
+
+Groups packages by their repository and module:
+
+```bash
+goda graph -cluster "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+```
+
+### Directory-Based Clustering (`-cluster-dir`)
+
+Creates nested clusters based on directory structure, with depth-based color coding:
+
+```bash
+# Enable directory-based clustering
+goda graph -cluster-dir "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+
+# Limit nesting depth to 2 levels
+goda graph -cluster-dir -cluster-depth 2 "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+
+# Disable depth-based coloring
+goda graph -cluster-dir -cluster-color=false "github.com/loov/goda/..." | dot -Tsvg -o graph.svg
+```
+
+**Directory clustering flags:**
+- `-cluster-dir`: Enable nested directory-based clusters (implies `-cluster`)
+- `-cluster-depth N`: Maximum cluster nesting depth (-1 for unlimited, default: -1)
+- `-cluster-color`: Color clusters by depth (default: true)
+- `-short`: Use short package IDs inside clusters
+
+Directory-based clustering organizes packages hierarchically by their path structure, making it easier to understand the architecture of large projects. Each nesting level uses a different shade of blue for visual distinction.
 
 ## Graph example
 
