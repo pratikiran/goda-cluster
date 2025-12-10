@@ -143,8 +143,10 @@ Here's an example output for:
 
 ```
 git clone https://github.com/pratikiran/goda-cluster && cd goda-cluster
-goda-cluster graph -cluster-dir -cluster-depth -1 github.com/pratikiran/goda-cluster:mod | dot -Tsvg -o graph.svg
+goda-cluster graph -cluster-dir "github.com/pratikiran/goda-cluster/..." | dot -Tsvg -o graph.svg
 ```
+> [!IMPORTANT]
+> Make sure to run the above command from the working directory that corresponds to the packages you intend to analyze.
 
 ![github.com/pratikiran/goda-cluster dependency graph](./graph.svg)
 
